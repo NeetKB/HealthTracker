@@ -1,10 +1,6 @@
-DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS test_table;
 
-CREATE TABLE users (
-  id SERIAL PRIMARY KEY,
-  fullname text,
-  email text,
-  password text
-);
 
-INSERT INTO users (fullname, email, password) VALUES ('Sam', 'sam@example.com', 'password123!');
+CREATE TABLE test_table (id SERIAL PRIMARY KEY, name VARCHAR(255));
+
+INSERT INTO test_table (name) VALUES ('first_record');
