@@ -18,6 +18,8 @@ class DatabaseConnection:
     # to localhost and select the database name given in argument.
     def connect(self):
         try:
+            db_name = self._database_name()
+            print(f"Connecting to database: {db_name}")  # This will show which database is being connected to       
             self.connection = psycopg.connect(
                 f"postgresql://amani:admin@localhost/{self._database_name()}",
                 row_factory=dict_row)

@@ -1,0 +1,101 @@
+<!doctype html>
+<html class="h-full bg-white">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./static/output.css" rel="stylesheet">
+</head>
+
+<body class="h-full bg-white text-black dark:bg-gray-900 dark:text-white transition-all duration-500">
+    <div class="flex justify-between p-6">
+        <!-- Dark Mode Toggle Button -->
+        <button id="dark-mode-toggle" class="px-4 py-2 bg-indigo-600 text-white rounded-full shadow-lg">
+            Dark Mode
+        </button>
+    </div>
+
+    <div class="flex min-h-full flex-col justify-center items-center px-6 py-12 lg:px-8">
+        <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+            <h1 class="text-3xl font-bold underline text-center">
+                You have succussfully registered!
+            </h1>
+            <h2
+                class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900dark:bg-gray-900 dark:text-white ">
+                You can now log-in</h2>
+        </div>
+
+        <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm dark:bg-gray-900 dark:text-white ">
+            <form class="space-y-6" action="/login" method="POST">
+                <div>
+                    <label for="email"
+                        class="block text-sm/6 font-medium text-gray-900dark:bg-gray-900 dark:text-white">Email
+                        address</label>
+                    <div class="mt-2">
+                        <input type="email" name="email" id="email" autocomplete="email" required
+                            class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flex items-center justify-between">
+                        <label for="password"
+                            class="block text-sm/6 font-medium text-gray-900dark:bg-gray-900 dark:text-white">Password</label>
+                    </div>
+                    <div class="mt-2">
+                        <input type="password" name="password" id="password" autocomplete="current-password" required
+                            class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                    </div>
+                </div>
+
+                <div>
+                    <button type="submit"
+                        class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Log-in</button>
+                </div>
+            </form>
+
+            <p class="mt-10 text-center text-sm/6 text-gray-500 dark:bg-gray-900 dark:text-white">
+                Not registered?
+                <a href="/"
+                    class="font-semibold text-indigo-600 hover:text-indigo-500 dark:bg-gray-900 dark:text-white ">Register
+                    an account here</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Get the toggle button and the <html> element
+        const toggleButton = document.getElementById('dark-mode-toggle');
+        const htmlElement = document.documentElement;
+
+        // Check if dark mode is already applied by checking the class on <html> element
+        const isDarkMode = localStorage.getItem('darkMode') === 'true';
+
+        // Apply dark mode class if dark mode is enabled
+        if (isDarkMode) {
+            htmlElement.classList.add('dark');
+            toggleButton.textContent = "Switch to Light Mode";  // Change button text
+        } else {
+            toggleButton.textContent = "Switch to Dark Mode";  // Default text
+        }
+
+        // Toggle dark mode when button is clicked
+        toggleButton.addEventListener('click', () => {
+            // Toggle the dark mode class on the <html> element
+            htmlElement.classList.toggle('dark');
+
+            // Store the user's preference in localStorage
+            const darkModeEnabled = htmlElement.classList.contains('dark');
+            localStorage.setItem('darkMode', darkModeEnabled);
+
+            // Change the button text based on the current mode
+            if (darkModeEnabled) {
+                toggleButton.textContent = "Switch to Light Mode";  // Button text for Dark Mode
+            } else {
+                toggleButton.textContent = "Switch to Dark Mode";  // Button text for Light Mode
+            }
+        });
+    </script>
+</body>
+
+</html>
