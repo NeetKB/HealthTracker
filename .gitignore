@@ -4,3 +4,4 @@ __pycache__
 .pytest_cache
 .env
 .package.json
+.node_modules
