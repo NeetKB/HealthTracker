@@ -18,6 +18,7 @@ def get_homepage():
 @app.route('/', methods=["POST"])
 def register_user():
     connection = get_flask_database_connection(app)
+    print("Connected to database!")
     repository = UserRepository(connection)
 
     fullname = request.form["fullname"]
@@ -29,7 +30,7 @@ def register_user():
     try:
         repository.create_user(user)
         print("User created successfully") 
-        return render_template("/register_success")
+        return redirect("/register_success")
     
     except Exception as e:
         print(f"Error during registration: {e}")  # Log error
@@ -38,7 +39,7 @@ def register_user():
 
 
 
-@app.route('/register_success', methods=['GET'])
+@app.route('/register_success', methods=['GET', 'POST'])
 def register_successful():
     return render_template('register_success.html')
 
