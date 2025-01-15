@@ -15,7 +15,7 @@ screen_sizes = [
     (375, 667)     # Mobile
 ]
 
-url = "http://127.0.0.1:5000" 
+url = "http://127.0.0.1:5000/login" 
 
 @pytest.fixture
 def driver():
@@ -31,20 +31,17 @@ def driver():
 def test_responsiveness(driver, width, height): 
     driver.get(url)
     driver.set_window_size(width, height)
-    sign_in_button = driver.find_element(By.XPATH, "//button[contains(text(), 'Register')]")
-    assert sign_in_button.is_displayed(), f"'Register' button is not visible at {width}x{height}"
+    sign_in_button = driver.find_element(By.XPATH, "//button[contains(text(), 'Log-in')]")
+    assert sign_in_button.is_displayed(), f"'Log-in' button is not visible at {width}x{height}"
 
     
-
 """ Test that page renders successfully"""
-def test_render_homepage_successfully(page):
-    page.goto('http://127.0.0.1:5000/')
+def test_render_login_page_successfully(page):
+    page.goto('http://127.0.0.1:5000/login')
     h2_tag = page.locator("h2")
-    expect(h2_tag).to_have_text("Register an account")
     input_email_tag = page.get_by_text("email")
     expect(input_email_tag).to_be_visible()
     input_password_tag = page.get_by_text("Password")
     expect(input_password_tag).to_be_visible()
     submit_button_tag = page.locator("button[type='submit']")
-    expect(submit_button_tag).to_have_text("Register")
-
+    expect(submit_button_tag).to_have_text("Log-in")

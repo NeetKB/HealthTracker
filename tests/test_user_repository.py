@@ -2,15 +2,17 @@ from lib.database_connection import DatabaseConnection
 from lib.user_repository import *
 from lib.user import *
 import pytest
+from app import get_flask_database_connection, app
+
+
 """
 User is created 
 """
-
 def test_user_can_create_account(db_connection):
     db_connection.seed("seeds/health_tracker.sql")
     repo = UserRepository(db_connection)
     repo.create_user(User(None, "Tina Newman", "tn@example.com", "Passwords123!"))
-    res =  repo.get_user_details("Tina Newman") 
+    res =  repo.get_user_details("tn@example.com") 
     assert res == User(3,"Tina Newman", "tn@example.com", pass_hash("Passwords123!") )
 
 
@@ -18,7 +20,7 @@ def test_user_can_create_account(db_connection):
 def test_read_user_details(db_connection):
     db_connection.seed("seeds/health_tracker.sql")
     repository = UserRepository(db_connection)
-    user = repository.get_user_details("Sam")
+    user = repository.get_user_details("sam@example.com")
     assert user == User(1, "Sam", "sam@example.com", "a109e36947ad56de1dca1cc49f0ef8ac9ad9a7b1aa0df41fb3c4cb73c1ff01ea")
 
 """
@@ -71,15 +73,15 @@ def test_user_details_deletion(db_connection):
     db_connection.seed("seeds/health_tracker.sql")
     repository = UserRepository(db_connection)
     repository.delete_account("Sam")
-    account = repository.get_user_details("Sam")
+    account = repository.get_user_details("sam@example.com")
     assert account == None
 
 """test that password can be updated correctly"""
 def test_update_password_success(db_connection):
     db_connection.seed("seeds/health_tracker.sql")
     repository = UserRepository(db_connection)
-    user = repository.update_password("Sam", "qwertyuiop!")
-    updated_profile = repository.get_user_details("Sam")
+    user = repository.update_password("sam@example.com", "qwertyuiop!")
+    updated_profile = repository.get_user_details("sam@example.com")
     assert updated_profile == User(1, "Sam", "sam@example.com", pass_hash("qwertyuiop!"))
 
 """test that password can be updated incorrectly (special characters)"""
@@ -87,7 +89,7 @@ def test_update_password_fail_special(db_connection):
     db_connection.seed("seeds/health_tracker.sql")
     repository = UserRepository(db_connection)
     with pytest.raises(Exception) as err:
-        user = repository.update_password("Sam", "qwertyuiop")
+        user = repository.update_password("sam@example.com", "qwertyuiop")
     error_msg = str(err.value)
     assert error_msg == "This password does not comply with requirements! Must have at least one special character."
     
@@ -97,6 +99,6 @@ def test_update_password_fail_number(db_connection):
     db_connection.seed("seeds/health_tracker.sql")
     repository = UserRepository(db_connection)
     with pytest.raises(Exception) as err:
-        user = repository.update_password("Sam", "we")
+        user = repository.update_password("sam@example.com", "we")
     error_msg = str(err.value)
     assert error_msg == "This password does not comply with requirements! Must have at least 8 characters."
