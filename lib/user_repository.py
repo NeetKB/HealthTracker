@@ -2,8 +2,6 @@ from lib.user import *
 import re
 import hashlib
 
-
-
 def pass_hash(password):
     binary_password = password.encode("utf-8")
     return hashlib.sha256(binary_password).hexdigest()
@@ -35,8 +33,8 @@ class UserRepository:
         else:
             raise Exception("This fullname has been taken!")
         
-    def get_user_details(self, fullname):
-        rows = self._connection.execute('select * from users where fullname = %s', [fullname])
+    def get_user_details(self, email):
+        rows = self._connection.execute('select * from users where email = %s', [email])
         if rows == []:
             return None
         else:
@@ -46,17 +44,23 @@ class UserRepository:
     def delete_account(self, fullname):
         self._connection.execute('delete from users where fullname = %s', [fullname])
 
-    def update_password(self, fullname, new_password):
-        row = self._connection.execute('select * from users where fullname = %s', [fullname])
+    def update_password(self, email, new_password):
+        row = self._connection.execute('select * from users where email = %s', [email])
         if row != []:
             if len(new_password) >= 8:            
                 if any(elem in '!@$%&' for elem in new_password) == True:
-                    self._connection.execute('update users set password = %s where fullname = %s', [pass_hash(new_password), fullname])
+                    self._connection.execute('update users set password = %s where email = %s', [pass_hash(new_password), email])
                 else:
                     raise Exception("This password does not comply with requirements! Must have at least one special character.")
             else:
                 raise Exception("This password does not comply with requirements! Must have at least 8 characters.")
         else:
             raise Exception("User not found.")
-        
+    
+    def check_password(self, email, password):
+        rows = self._connection.execute('select * from users where email = %s and password = %s', [email, pass_hash(password)])
+        if rows == []:
+            return False
+        else:
+            return True
         
