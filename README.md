@@ -1,22 +1,34 @@
 # WORK IN PROGRESS: Health Tracker project
 
-This repository is an application that allows to create an account, sign-in and aims to track the below information and provide weekly, monthly, quarterly and yearly reports:
+I am commited to web accessibiity and aim to ensure that implementing accessibility elements are at the core of this project.
+
+I plan to make the application accessible by implementing W3C standards & principles [Link for W3C](https://www.w3.org/WAI/fundamentals/)and via customisations (e.g. text size and color contrast).
+
+This application aims to allow users to create an account, sign-in and track the below information and provide weekly, monthly, quarterly and yearly reports:
 (see features below for the functunality that has been implemented)
 
 - Symptoms
 - Medications
 - Glimmers (i.e. positive interactions )
+- Actions (i.e. exercise/busy days)
 - Habits
 - Feelings
 - Food
 
-In addition to the above, the user will be able to store their conditions, doctors information and medical appointments, as well as add notes for any appointments.
+In addition to the above, the user will be able to store:
+- Medical conditions 
+- Doctors information 
+- Reminders 
+- Medical appointments
+- and notes for any appointments
+
+This appplication is aimed at people with chronic illnesses. The application would be useful to show Doctors how symptoms have progressed / declined over a long period of time, instead of the user relying on memory.
 
 ## Built with Python, Flask, PostgreSQL, Pytest and Tailwind CSS.
 
 ## 🌟 Features
 
-    * User Authentication: Users can create an account. Passwords are encrypted in the database.
+    * User Authentication: Users can create an account (Passwords are encrypted in the database).
 
 ## 🔧 Prerequisites
 
