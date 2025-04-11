@@ -74,6 +74,15 @@ def log_in_user():
 def get_dashboard():
     return render_template('/dashboard.html')
 
+@app.route('/symptoms', methods=['GET'])
+def get_symptoms_page():
+    return render_template('/symptoms.html')
+
+## SYMPTOMS ROUTES
+@app.route('/symptoms', methods=['POST'])
+def get_symptoms_page():
+    return render_template('/symptoms.html')
+
 # this controls which part of the code is run i.e. app
 if __name__ == '__main__':
     # these configurations ensures that the app behaves differently depending on which environment I am in
